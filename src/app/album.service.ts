@@ -1,24 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Album } from './album.model';
 import { ALBUMS } from './mock-albums';
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 @Injectable()
 export class AlbumService {
+  albums: FirebaseListObservable<any[]>;
 
-  constructor() { }
-
-  getAlbums() {
-    return ALBUMS;
+  constructor(private angularFire: AngularFire) {
+     this.albums = angularFire.database.list('albums');
   }
 
-  getAlbumById(albumId: number) {
-    let foundAlbum: Album = null;
+  getAlbums() {
+    return this.albums;
+  }
 
-    ALBUMS.forEach((album)=> {
-      if(album.id === albumId){
-        foundAlbum = album;
-      }
-    });
-    return foundAlbum;
+  getAlbumById(albumId: string) {
+    return this.angularFire.database.object('albums/'+albumId);
   }
 }
