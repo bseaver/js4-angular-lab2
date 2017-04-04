@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-edit-album',
@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edit-album.component.css']
 })
 export class EditAlbumComponent implements OnInit {
-
+  @Input() selectedAlbum;
+  
   constructor() { }
 
   ngOnInit() {
